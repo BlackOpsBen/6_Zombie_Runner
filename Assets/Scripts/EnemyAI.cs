@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
@@ -6,9 +7,9 @@ using UnityEngine.AI;
 public class EnemyAI : MonoBehaviour
 {
     [SerializeField] Transform target;
-    [SerializeField] float chaseRange = 5f;
+    [SerializeField] float provokeRange = 5f;
     [SerializeField] float pursuitRange = 10f;
-    [SerializeField] bool isPursuing = false;
+    [SerializeField] bool isProvoked = false;
     [SerializeField] Color selectionColor = Color.red;
     float gizmoSize;
 
@@ -17,36 +18,56 @@ public class EnemyAI : MonoBehaviour
 
     void Start()
     {
-        gizmoSize = chaseRange;
+        gizmoSize = provokeRange;
         navMeshAgent = GetComponent<NavMeshAgent>();
     }
 
     void Update()
     {
         distanceToTarget = Vector3.Distance(target.position, transform.position);
-        if (distanceToTarget < chaseRange)
+
+        if (distanceToTarget < provokeRange)
         {
-            isPursuing = true;
+            isProvoked = true;
         }
+
         if (distanceToTarget > pursuitRange)
         {
-            isPursuing = false;
+            isProvoked = false;
         }
-        if (isPursuing)
+
+        if (isProvoked)
+        {
+            ChaseTarget();
+        }
+    }
+
+    private void ChaseTarget()
+    {
+        if (distanceToTarget < navMeshAgent.stoppingDistance)
+        {
+            AttackTarget();
+        }
+        else
         {
             navMeshAgent.SetDestination(target.position);
         }
     }
 
+    private void AttackTarget()
+    {
+        print("You are being attacked!");
+    }
+
     private void OnDrawGizmosSelected()
     {
-        if (isPursuing)
+        if (isProvoked)
         {
             gizmoSize = pursuitRange;
         }
         else
         {
-            gizmoSize = chaseRange;
+            gizmoSize = provokeRange;
         }
         Gizmos.color = selectionColor;
         Gizmos.DrawWireSphere(transform.position, gizmoSize);
