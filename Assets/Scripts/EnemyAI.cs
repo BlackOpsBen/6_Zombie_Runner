@@ -44,12 +44,15 @@ public class EnemyAI : MonoBehaviour
 
     private void ChaseTarget()
     {
+        GetComponent<Animator>().SetTrigger("move");
         if (distanceToTarget < navMeshAgent.stoppingDistance)
         {
+            GetComponent<Animator>().SetBool("attack", true);
             AttackTarget();
         }
         else
         {
+            GetComponent<Animator>().SetBool("attack", false);
             navMeshAgent.SetDestination(target.position);
         }
     }
