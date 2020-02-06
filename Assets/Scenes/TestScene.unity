@@ -1229,6 +1229,26 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9ae7f9f9eacff4142b21eb85ae606fdc, type: 3}
+--- !u!1 &1673795804 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 501388649741131192, guid: c33f829527e3a4a3bad0b78f381a497c,
+    type: 3}
+  m_PrefabInstance: {fileID: 501388650890341117}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1673795813
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1673795804}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 91f78e8a171e2d14b844c68980c309b4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  target: {fileID: 986762416}
+  damage: 40
 --- !u!4 &1736033260 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 400000, guid: 90d8e09703679534295bd2cacb73d6de,
@@ -1708,35 +1728,15 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 501388649741131191, guid: c33f829527e3a4a3bad0b78f381a497c,
-        type: 3}
-      propertyPath: m_LocalScale.y
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 501388649741131191, guid: c33f829527e3a4a3bad0b78f381a497c,
-        type: 3}
-      propertyPath: m_LocalScale.x
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 501388649741131191, guid: c33f829527e3a4a3bad0b78f381a497c,
-        type: 3}
-      propertyPath: m_LocalScale.z
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 501388649741131192, guid: c33f829527e3a4a3bad0b78f381a497c,
         type: 3}
       propertyPath: m_Name
       value: Enemy
       objectReference: {fileID: 0}
-    - target: {fileID: 501388649741131194, guid: c33f829527e3a4a3bad0b78f381a497c,
-        type: 3}
-      propertyPath: m_Material
-      value: 
-      objectReference: {fileID: 0}
     - target: {fileID: 1425541038158593193, guid: c33f829527e3a4a3bad0b78f381a497c,
         type: 3}
-      propertyPath: m_Enabled
-      value: 0
+      propertyPath: m_ApplyRootMotion
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c33f829527e3a4a3bad0b78f381a497c, type: 3}
