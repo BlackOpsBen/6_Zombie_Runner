@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
@@ -7,72 +6,59 @@ using UnityEngine.AI;
 public class EnemyAI : MonoBehaviour
 {
     [SerializeField] Transform target;
-    [SerializeField] float provokeRange = 5f;
-    [SerializeField] float pursuitRange = 10f;
-    [SerializeField] bool isProvoked = false;
-    [SerializeField] Color selectionColor = Color.red;
-    float gizmoSize;
+    [SerializeField] float chaseRange = 5f;
 
     NavMeshAgent navMeshAgent;
     float distanceToTarget = Mathf.Infinity;
-
+    bool isProvoked = false;
+    
     void Start()
     {
-        gizmoSize = provokeRange;
         navMeshAgent = GetComponent<NavMeshAgent>();
     }
 
     void Update()
     {
         distanceToTarget = Vector3.Distance(target.position, transform.position);
-
-        if (distanceToTarget < provokeRange)
+        if (isProvoked)
+        {
+            EngageTarget();
+        }
+        else if (distanceToTarget <= chaseRange)
         {
             isProvoked = true;
         }
+    }
 
-        if (distanceToTarget > pursuitRange)
-        {
-            isProvoked = false;
-        }
-
-        if (isProvoked)
+    private void EngageTarget()
+    {
+        if (distanceToTarget >= navMeshAgent.stoppingDistance)
         {
             ChaseTarget();
+        }
+
+        if (distanceToTarget <= navMeshAgent.stoppingDistance)
+        {
+            AttackTarget();
         }
     }
 
     private void ChaseTarget()
     {
+        GetComponent<Animator>().SetBool("attack", false);
         GetComponent<Animator>().SetTrigger("move");
-        if (distanceToTarget < navMeshAgent.stoppingDistance)
-        {
-            GetComponent<Animator>().SetBool("attack", true);
-            AttackTarget();
-        }
-        else
-        {
-            GetComponent<Animator>().SetBool("attack", false);
-            navMeshAgent.SetDestination(target.position);
-        }
+        navMeshAgent.SetDestination(target.position);
     }
 
     private void AttackTarget()
     {
-        print("You are being attacked!");
+        GetComponent<Animator>().SetBool("attack", true);
+        Debug.Log(name + " has seeked and is destroying " + target.name);
     }
 
-    private void OnDrawGizmosSelected()
+    void OnDrawGizmosSelected()
     {
-        if (isProvoked)
-        {
-            gizmoSize = pursuitRange;
-        }
-        else
-        {
-            gizmoSize = provokeRange;
-        }
-        Gizmos.color = selectionColor;
-        Gizmos.DrawWireSphere(transform.position, gizmoSize);
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(transform.position, chaseRange);
     }
 }

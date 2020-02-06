@@ -7,7 +7,6 @@ public class EnemyAttack : MonoBehaviour
     [SerializeField] Transform target;
     [SerializeField] float damage = 40f;
 
-    // Start is called before the first frame update
     void Start()
     {
         
@@ -16,6 +15,7 @@ public class EnemyAttack : MonoBehaviour
     public void AttackHitEvent()
     {
         if (target == null) return;
-        Debug.Log("Hit!");
+        Debug.Log("bang bang");
     }
+
 }

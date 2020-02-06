@@ -1,23 +1,18 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class EnemyHealth : MonoBehaviour
 {
-    [SerializeField] int hitPoints = 100;
+    [SerializeField] float hitPoints = 100f;
 
-    public void TakeDamage(int damage)
+    public void TakeDamage(float damage)
     {
         hitPoints -= damage;
         if (hitPoints <= 0)
         {
-            KillEnemy();
+            Destroy(gameObject);
         }
     }
 
-    private void KillEnemy()
-    {
-        Destroy(gameObject);
-    }
 }
